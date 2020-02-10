@@ -30,3 +30,9 @@ spec:
               mountPath: /var/lib/postgresql/data
               #this is for folder name in persistent volume for postgres
               subPath: postgres
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD

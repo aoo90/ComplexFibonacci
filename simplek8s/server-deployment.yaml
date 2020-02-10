@@ -17,3 +17,24 @@ spec:
           image: stephengrider/multi-server
           ports:
             - containerPort: 5000          
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: "6379"
+            - name: PGUSER
+              value: postgress
+            - name: PGHOST
+              value: postgres-cluster-ip-service
+            - name: PGPORT
+              value: "5432"
+            - name: PGDATABASE
+              value: postgres              
+              #this is name of the env variable referencing from code
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  #this name PGPASSWORD should match the secret key name
+                  #kubectl create secret generic PGPASSWORD --from-literal PGPASSWORD=1234asdf
+                  key: PGPASSWORD
